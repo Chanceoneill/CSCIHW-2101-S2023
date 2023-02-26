@@ -8,9 +8,13 @@ package HW1;
 // HELLO
 // 01234
 public class Replace {
-    public String charReplace(String s, int x, char z) {
-        return null;
-        
+     public String charReplace(String s, int x, char z) {
+        if (x >= s.length()) {
+            return s;
+        } else {
+            String before = s.substring(0, x);
+            String after = s.substring(x + 1);
+            return before + z + after;
+     }
     }
-    
 }
