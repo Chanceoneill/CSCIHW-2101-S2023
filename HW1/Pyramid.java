@@ -25,9 +25,15 @@ public class Pyramid {
             System.out.println();
         }
         for (int i = size - 1; i >= 1; i--) {
+            // print i # charechters for each row
             for (int j = 1; j <= i; j++) {
-                System.out.print("#");
+                System.out.print ("#");
             }
             System.out.println();
         }
-    }}
+    }
+    public static void main(String[] args) {
+        System.out.println("#");
+        Output();
+    }
+}

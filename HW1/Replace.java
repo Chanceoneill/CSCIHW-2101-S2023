@@ -8,7 +8,7 @@ package HW1;
 // HELLO
 // 01234
 public class Replace {
-     public String charReplace(String s, int x, char z) {
+     public static String charReplace(String s, int x, char z) {
         if (x >= s.length()) {
             return s;
         } else {
@@ -16,5 +16,12 @@ public class Replace {
             String after = s.substring(x + 1);
             return before + z + after;
      }
+    }
+    public static void main(String[] args) {
+        String s = "I MAKE BREAD";
+        int x = 2;
+        char z = 'T';
+        String newString = charReplace(s, x, z);
+        System.out.println(newString);
     }
 }
