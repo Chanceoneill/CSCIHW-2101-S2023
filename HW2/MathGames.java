@@ -15,11 +15,7 @@ public static double calculateHypotenuse(double a, double b) {
     double c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
     return c;
 }
-   { double a = 6;
-    double b = 8;
-    double c = calculateHypotenuse(a, b);
-    System.out.println(c);
-}
+   
 
     
     // 2. Create a method that will calcuate my grade in the class. You can use the grade range as follows
@@ -51,6 +47,7 @@ public static double calculateHypotenuse(double a, double b) {
         
         
         System.out.println("my letter grade is: " + letterGrade);
+        return letterGrade;
     }
     
 
@@ -86,6 +83,11 @@ public static double calculateHypotenuse(double a, double b) {
         System.out.println("The tip per person is: " + tipPerPerson);
         double myGrade = 69.3;
         String letterGrade = calculateGrade(myGrade);
+        double a = 6;
+        double b = 8;
+        double c = calculateHypotenuse(a, b);
+        System.out.println(c);
+        }
         
     }
-}
+
