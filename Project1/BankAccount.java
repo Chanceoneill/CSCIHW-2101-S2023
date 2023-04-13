@@ -107,20 +107,112 @@ public class BankAccount {
         this.accountNumber = accountNumber;
     }
 
+    // public void deposit(double amount) {
+    // this.balance += amount;
+    // }
+
+    // public void withdraw(double amount) {
+    // this.balance -= amount;
+    // }
+    // Deposit method
     public void deposit(double amount) {
-        this.balance += amount;
+        balance += amount;
+        System.out.println("Deposited: $" + amount);
     }
 
+    // Withdraw method
     public void withdraw(double amount) {
-        this.balance -= amount;
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: $" + amount);
+            System.out.println("Current balance: $" + balance);
+        } else {
+        overDraft(amount);
+
+            // System.out.println("Insufficient funds!");
+        }
     }
+
+    // Overdraft method
+    public void overDraft(double amount) {
+        double overdraftFee = 35.0;
+        if (balance < 0 || (balance - amount) < 0) {
+            System.out.println("Warning: This transaction will result in an overdraft fee of $" + overdraftFee);
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Do you want to continue? (yes/no)");
+            String input = sc.next();
+            if (input.equalsIgnoreCase("yes")) {
+                balance -= (amount + overdraftFee);
+                System.out.println("Withdrawn: $" + amount);
+                System.out.println("Overdraft fee: $" + overdraftFee);
+                System.out.println("Current balance: $" + balance);
+            } else {
+                System.out.println("Transaction cancelled.");
+            }
+
+        } else {
+            withdraw(amount);
+        }
+    }
+
+    // Transfer money method
+    public void transfer(BankAccount receiver, BankAccount sender, double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            receiver.deposit(amount);
+            sender.withdraw(amount);
+        } else {
+            System.out.println("Insufficient funds for transfer!");
+        }
+    }
+
+    // Calculate simple interest method
+    public double calculateSimpleInterest(double principal, double rate, double time) {
+        double simpleInterest = (principal * rate * time) / 100;
+        return simpleInterest;
+    }
+
+    // Create savings account method
+    public void createSavingsAccount() {
+       Scanner sc = new Scanner(System.in);
+            System.out.println("Enter initial balance for savings account: ");
+            double initialBalance = sc.nextDouble();
+            if (initialBalance >= 10000) {
+                System.out.println("Do you want to create a savings account? (yes/no)");
+                String input = sc.next();
+                if (input.equalsIgnoreCase("yes")) {
+                    System.out.println("Select interest type (1 for compound, 2 for simple): ");
+                    int interestType = sc.nextInt();
+                    double apy = 0.0001;
+                    if (interestType == 2) {
+                        apy = 0.001;
+                    }
+                    System.out.println("Enter principal amount: ");
+                    double principal = sc.nextDouble();
+                    System.out.println("Enter time in years: ");
+                    double time = sc.nextDouble();
+                    double interest = 0.0;
+                    if (interestType == 1) {
+                        int n = 4; // Quarterly compounding
+                        double rate = apy / n;
+                        interest = principal * (Math.pow((1 + rate), (n * time))) - principal;
+                    } else if (interestType == 2) {
+                        double rate = apy;
+                        interest = calculateSimpleInterest(principal, rate, time);
+                    }
+                    deposit(interest);
+                    System.out.println("Interest credited: $" + interest);
+                }
+            }
+        }
+    
 
     // Create a mthod that will subtract a mothly fee from the balance
     // this method will take a double as a parameter
     // this method will subtract the fee from the balance
     // Netflix subscription is $12.99
     public void monthlyFee(double fee) {
-        withdraw(fee);
+        withdraw(fee); // This will call the withdraw method
     }
 
     // Create a method that will print a menu to the user
@@ -135,9 +227,11 @@ public class BankAccount {
         System.out.println("4. Balance");
         System.out.println("5. Compound Interest");
         System.out.println("6. Simple Interest"); // HomeWork
+        System.out.println("7. Create Savings Account"); // HomeWork
         System.out.println("0. Exit");
         System.out.println("Please enter your choice: ");
         choice = input.nextInt();
+
         return choice;
     }
 
@@ -148,13 +242,10 @@ public class BankAccount {
     // Create a method that will interact with the user based on their choice from
     // the menu method
     // This method will take a Bank Account as a parameter
-    public static void interact(BankAccount account) {
+    public static void interact(BankAccount account, BankAccount account2) {
         // get the choice from the menu method
-        int choice = menu();
-        // create a scanner object
+        int choice = menu(); // create a scanner object
         Scanner input = new java.util.Scanner(System.in);
-        // use that choice and run the method associated with that choice
-
         if (choice == 1) {
             System.out.println("Please enter the amount you would like to deposit: ");
             double amount = input.nextDouble();
@@ -163,23 +254,36 @@ public class BankAccount {
         } else if (choice == 2) {
             System.out.println("How much would you like to withdraw?");
             double amount = input.nextDouble();
+
             account.withdraw(amount);
             account.printBalance();
-        } // place holder for choice 3
-        else if (choice == 4) {
+        } else if (choice == 3) { // place holder for choice 3
+            System.out.println("How much would you like to transfer?");
+            double amount = input.nextDouble();
+            account.transfer(account, account2, amount);
+        } else if (choice == 4) {
             account.printBalance();
         } else if (choice == 5) {
             System.out.println("How many years? (Whole numbers only)");
             int years = input.nextInt();
             account.compoundInterest(account.getbalance(), years, account.interestRate, account.period);
             account.printBalance();
-        } // place holder for choice 6
-        else if (choice == 0) {
+        } else if (choice == 6) {// place holder for choice 6
+            System.out.println("How many years? (Whole numbers only)");
+            int years = input.nextInt();
+            double simpleIntrest = account.calculateSimpleInterest(years, choice, years);
+            account.calculateSimpleInterest(account.getbalance(), account.interestRate, years);
+            System.out.println("Simple Interest: $" + simpleIntrest);
+           // simulate added simple interest to balance without depositing
+            account.balance += simpleIntrest;
+            account.printBalance();
+        } else if (choice == 7) { // place holder for choice 7
+            account.createSavingsAccount();
+        } else if (choice == 0) {
             System.out.println("Thank you for banking with Appas Bank");
         } else { // this would catch any invalid choices like
             System.out.println("Invalid choice");
         }
-
     }
 
     // Create a method that will calculate the interest on the balance using
