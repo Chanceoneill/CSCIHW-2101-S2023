@@ -187,8 +187,7 @@ public class BankAccount {
                     if (interestType == 2) {
                         apy = 0.001;
                     }
-                    System.out.println("Enter principal amount: ");
-                    double principal = sc.nextDouble();
+                    double principal = initialBalance;
                     System.out.println("Enter time in years: ");
                     double time = sc.nextDouble();
                     double interest = 0.0;
