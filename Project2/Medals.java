@@ -18,6 +18,8 @@ public class Medals {
          Russia       0       1       1       2
   United States       1       1       0       2
 
+  
+
     After that create an ARRAYLIST that is the total of each medal awarded (IE 4 gold, 4 silver, 5 bronze)
     print the total of each medal 
     Hints:
@@ -43,32 +45,67 @@ public class Medals {
                       4       4       5
     */
 
+  
     public static void main(String[] args) {
-        final int COUNTRIES = 7;
-        final int MEDALS = 3;
-
+        // Initialize the medal counts
+        int[][] counts = {
+                {1, 0, 1},
+                {1, 1, 0},
+                {0, 0, 1},
+                {1, 0, 0},
+                {0, 1, 1},
+                {0, 1, 1},
+                {1, 1, 0}
+        };
+        
+        // Initialize the country names
         String[] countries = {
-            "Canada",
-            "China",
-            "Germany",
-            "Korea",
-            "Japan",
-            "Russia",
-            "United States"
+                "Canada",
+                "China",
+                "Germany",
+                "Korea",
+                "Japan",
+                "Russia",
+                "United States"
         };
+        
+        // Print the medal table header
+        System.out.printf("%-15s%-8s%-8s%-8s%-8s%n", "Country", "Gold", "Silver", "Bronze", "Total");
+        
+        // Print the medal table rows
+        int totalGold = 0;
+        int totalSilver = 0;
+        int totalBronze = 0;
+        for (int i = 0; i < counts.length; i++) {
+            int gold = counts[i][0];
+            int silver = counts[i][1];
+            int bronze = counts[i][2];
+            int total = gold + silver + bronze;
+            totalGold += gold;
+            totalSilver += silver;
+            totalBronze += bronze;
+            System.out.printf("%-15s%-8d%-8d%-8d%-8d%n", countries[i], gold, silver, bronze, total);
+        }
+        
+        // Print the medal totals
+        System.out.printf("%-15s%-8d%-8d%-8d%n", "Total", totalGold, totalSilver, totalBronze);
+        
+        // Calculate the medal counts array
+        int[] medalTotals = new int[3];
+        for (int i = 0; i < counts[0].length; i++) {
+            int colTotal = 0;
+            for (int j = 0; j < counts.length; j++) {
+                colTotal += counts[j][i];
+            }
+            medalTotals[i] = colTotal;
+        }
+        
+        // Print the medal counts
+        System.out.printf("%-8s%-8s%-8s%n", "Gold", "Silver", "Bronze");
+        System.out.printf("%-8d%-8d%-8d%n", medalTotals[0], medalTotals[1], medalTotals[2]);
+    }
 
-        int[][] counts = 
-        { 
-            { 1, 0, 1 },
-            { 1, 1, 0 }, 
-            { 0, 0, 1 }, 
-            { 1, 0, 1 }, 
-            { 0, 1, 1 }, 
-            { 0, 1, 1 },
-            { 1, 1, 0 }
-        };
-        System.out.println("        Country    Gold    Silver    Bronze   Total");
-
+}
 
         // TODO
         // Print countries, counts, and row totals (IE total medals by country)
@@ -99,9 +136,7 @@ public class Medals {
         // Gold    Silver    Bronze
         // 4       4         5
      
-    }
     
-}
 
 
 
