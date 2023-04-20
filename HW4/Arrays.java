@@ -1,5 +1,7 @@
 package HW4;
 
+import java.util.Scanner;
+
 public class Arrays {
 
     // CONVERT THE SUMS METHOD FROM HW3 TO ADD EACH VALUE TO AN ARRAY AND THEN OUTPUT THE 
@@ -23,10 +25,36 @@ public class Arrays {
     // Total: 22
     // Array: {12,2,3,4,1,0}
     public static void Arraysums(){
-
+        Scanner scanner = new Scanner(System.in);
+        int[] numbers = new int[10];
+        int total = 0;
+        int count =0;
+        System.out.println("I will add up the numbers you give me....");
+        while (true) {
+            System.out.print("Number: ");
+            int num = scanner.nextInt();
+            if (num == 0) {
+                break;
+            } else {
+                numbers[count] = num;
+                total += num;
+                System.out.println("The total so far is " + total + ".");
+                count++;
+            }
+            System.out.println("Total: " + total);
+        System.out.print("Array: {");
+        for (int i = 0; i < count; i++) {
+            System.out.print(numbers[i]);
+            if (i < count - 1) {
+                System.out.print(",");
+            }
+        }
+        System.out.println("}");
     }
+}
+    
 
-    // Create a method that will brute force a password EX.
+  // Create a method that will brute force a password EX.
     // bruteForce("ZZZZ")
     // The program should then guess each char of the string and compare it to see if it is equal
     // to the index of the alphabet char array below
@@ -46,8 +74,24 @@ public class Arrays {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
         '!', '@', '#', '$', '%', '^', '&', '*', '(', ')','<','>','/','?'};
     
-        return answer; 
+        char[] passwordChars = password.toCharArray();
+
+    for (int i = 1; i <= password.length(); i++) {
+        for (int j = 0; j < alphabet.length; j++) {
+            passwordChars[i-1] = alphabet[j];
+            String guess = new String(passwordChars);
+            System.out.println(guess);
+            if (guess.equals(password)) {
+                answer = guess;
+                break;
+            }
+        }
+        if (!answer.equals("")) {
+            break;
+        }
     }
+    return answer;
+}
 
     // Create a method that will sort an Array of integers from smallest to greatest.
     // NOTE: You CANNOT use the built in Arrays.sort method
@@ -58,17 +102,34 @@ public class Arrays {
     // Hint 2: 2 nested For loops should be all thats needed for the swapping logic
     public static int[] sorter(int[] nums){
         int [] sortedArray = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            sortedArray[i] = nums[i];
+        }
+        for (int i = 0; i < sortedArray.length; i++) {
+            for (int j = i + 1; j < sortedArray.length; j++) {
+                if (sortedArray[j] < sortedArray[i]) {
+                    int temp = sortedArray[i];
+                    sortedArray[i] = sortedArray[j];
+                    sortedArray[j] = temp;
+                }
+            }
+        }
         return sortedArray;
     }
-
 
 
 
     public static void main(String[] args) {
         // Tester main method for your methods
         System.out.println("Hello World!");
+        Arraysums();// HW3 Sums method converted to use an array
+        bruteForce("ZZZZ");// Brute force method
+        int[] nums = new int[]{9,10,2,5,3,4,7,8};
+        int[] sorted = sorter(nums);
+        for (int i = 0; i < sorted.length; i++) {
+            System.out.print(sorted[i] + " ");
+        }
+
 
     }
-
-    
 }
