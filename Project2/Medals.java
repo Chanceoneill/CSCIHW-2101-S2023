@@ -46,7 +46,7 @@ public class Medals {
     */
 
   
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         // Initialize the medal counts
         int[][] counts = {
                 {1, 0, 1},
@@ -86,25 +86,23 @@ public class Medals {
             totalBronze += bronze;
             System.out.printf("%-15s%-8d%-8d%-8d%-8d%n", countries[i], gold, silver, bronze, total);
         }
-        
-        // Print the medal totals
-        System.out.printf("%-15s%-8d%-8d%-8d%n", "Total", totalGold, totalSilver, totalBronze);
-        
-        // Calculate the medal counts array
-        int[] medalTotals = new int[3];
-        for (int i = 0; i < counts[0].length; i++) {
-            int colTotal = 0;
-            for (int j = 0; j < counts.length; j++) {
-                colTotal += counts[j][i];
-            }
-            medalTotals[i] = colTotal;
-        }
-        
         // Print the medal counts
-        System.out.printf("%-8s%-8s%-8s%n", "Gold", "Silver", "Bronze");
-        System.out.printf("%-8d%-8d%-8d%n", medalTotals[0], medalTotals[1], medalTotals[2]);
-    }
+System.out.printf("%-15s%-8d%-8d%-8d%-8s%n", "Total", totalGold, totalSilver, totalBronze, "X");
 
+// Print the medal counts header
+System.out.printf("%-15s%-8s%-8s%-8s%n", "", "Gold", "Silver", "Bronze");
+// Calculate the medal counts array
+int[] medalTotals = new int[3];
+for (int i = 0; i < counts[0].length; i++) {
+    int colTotal = 0;
+    for (int j = 0; j < counts.length; j++) {
+        colTotal += counts[j][i];
+    }
+    medalTotals[i] = colTotal;
+}
+// Print the medal counts rows
+System.out.printf("%-15s%-8d%-8d%-8d%n", " ", medalTotals[0], medalTotals[1], medalTotals[2]);
+}
 }
 
         // TODO
