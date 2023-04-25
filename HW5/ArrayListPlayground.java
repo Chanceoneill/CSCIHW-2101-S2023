@@ -7,6 +7,69 @@ import java.util.Scanner;
 
 public class ArrayListPlayground {
     public static void main(String[] args) {
+      // q1
+        ArrayList<Integer> nums = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15));
+        System.out.println("The tenth element of the array nums is: " + nums.get(9));
+        nums.set(4, 99);
+        nums.set(12,15);
+        nums.set(1,6);
+        nums.set(8, nums.get(12) + nums.get(1));
+   // q2
+        ArrayList<String> days = new ArrayList<>(Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"));
+        System.out.println("Days of the week:");
+        for (String day : days) {
+            System.out.println(day);
+        }
+        System.out.println("Days of the week that we have class:");
+        System.out.println(days.get(1));
+        System.out.println(days.get(3));
+        Collections.rotate(days, -1);
+// q3
+        ArrayList<Integer> numbers = new ArrayList<>();
+        try (Scanner scanner = new Scanner(System.in)) {
+            int num;
+            do {
+                System.out.print("Enter a number (0  to exit): ");
+                num = scanner.nextInt();
+                if (num != 0) {
+                    numbers.add(num);
+                }
+            } while (num != 0);
+            if (numbers.size() > 0) {
+                int max = Collections.max(numbers);
+                int min = Collections.min(numbers);
+                System.out.println("Max: " + max);
+                System.out.println("Min: " + min);
+            }
+            Collections.sort(numbers);
+            System.out.println("Sorted numbers: " + numbers);
+            int size = numbers.size();
+            if (size % 3  != 0) {
+                int needed = 3 - (size % 3);
+                for (int i = 0; i < needed; i++) {
+                    System.out.print("Enter a number: ");
+                    num = scanner.nextInt();
+                    numbers.add(num);
+                }
+            }
+            size = numbers.size();
+            if (size % 3 ==0) {
+                System.out.println("Matrix:");
+                for (int i = 0; i < size; i++) {
+                    System.out.print(numbers.get(i));
+                    if ((i + 1) % 3 == 0) {
+                        System.out.println();
+                    } else {
+                        System.out.print("\t");
+                    }
+                }
+            }
+        }
+        }
+    }
+
+   
+
     // Question 1
     // Write Java statements that do the following:
     // a) Declare an arrayList nums of 15 elements of type int.
@@ -55,7 +118,7 @@ public class ArrayListPlayground {
         
    
 
-}
+
 
 
 
